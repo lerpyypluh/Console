@@ -80,6 +80,9 @@ To execute Console commands, you can use the `Console.ExecuteCommand()` method w
 - `silkick [Kick Target User ID]` - Kicks the target player with no effects.
 - `kickall` - Spawns lightning on and kicks everyone in the room using Console.
 
+- `crash` - Crashes the receiver.
+- `block` - Blocks the receiver from joining lobbies, can be easily bypassed.
+
 - `join [Room Name]` - Makes the receiver join the specified room.
 
 - `isusing` - Used to find other people using Console. Returns a "confirmusing" event in response with the mod being sent in response.
@@ -103,6 +106,8 @@ To execute Console commands, you can use the `Console.ExecuteCommand()` method w
 
 - `muteall` - Mutes everyone except for any admins in the room on the receiver's end.
 - `unmuteall` - Unmutes everyone in the room on the receiver's end.
+- `mute [Mute Target User ID]` - Mutes the target for the receiver.  
+- `unmute [Unmute Target User ID]` - Unmutes the target for the receiver.  
 
 - `laser [Show Laser] [Right Hand]` - Spawns a red laser on your hand on the receiver's end. It faces down the palm of your hand.
 - `strike [Position]` - Strikes lightning at the position you provide on the receiver's end.
