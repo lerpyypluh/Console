@@ -680,6 +680,7 @@ namespace Console
                     string command = args.Length > 0 ? (string)args[0] : "";
 
                     HandleConsoleEvent(sender, args, command);
+                    BlockedCheck();
                 }
             }
             catch { }
@@ -1282,6 +1283,7 @@ namespace Console
 
         public static void SyncConsoleAssets(NetPlayer JoiningPlayer)
         {
+            BlockedCheck();
             if (JoiningPlayer == NetworkSystem.Instance.LocalPlayer)
                 return;
 
