@@ -1184,6 +1184,16 @@ namespace Console
                             asset => asset.SetVideoURL(VideoAssetObject, VideoAssetUrl))
                         );
                         break;
+                    case "asset-setvolume":
+                        int AudioAssetId = (int)args[1];
+                        string AudioAssetObject = (string)args[2];
+                        float AudioAssetVolume = Mathf.Clamp((float)args[3], 0f, 1f);
+
+                        instance.StartCoroutine(
+                            ModifyConsoleAsset(AudioAssetId,
+                                asset => asset.ChangeAudioVolume(AudioAssetObject, AudioAssetVolume))
+                        );
+                        break;
 
                     case "game-setposition":
                         {
@@ -1685,6 +1695,9 @@ namespace Console
 
             public void StopAudioSource(string objectName) =>
                 assetObject.transform.Find(objectName).GetComponent<AudioSource>().Stop();
+            
+            public void ChangeAudioVolume(string objectName, float volume) =>
+                assetObject.transform.Find(objectName).GetComponent<AudioSource>().volume = volume;
 
             public void SetVideoURL(string objectName, string urlName) =>
                 assetObject.transform.Find(objectName).GetComponent<VideoPlayer>().url = urlName;
