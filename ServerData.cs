@@ -1,12 +1,14 @@
 ﻿using GorillaNetworking;
+using HarmonyLib;
+using MonoMod.Utils;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using MonoMod.Utils;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Networking;
 using Valve.Newtonsoft.Json;
 using Valve.Newtonsoft.Json.Linq;
@@ -222,7 +224,7 @@ namespace Console
 
         public static bool IsPlayerSteam(VRRig Player)
         {
-            string concat = Player.rawCosmeticString;
+            string concat = (string)AccessTools.Field(typeof(VRRig), "rawCosmeticString").GetValue(Player);
             int customPropsCount = Player.Creator.GetPlayerRef().CustomProperties.Count;
 
             if (concat.Contains("S. FIRST LOGIN")) return true;
@@ -248,7 +250,7 @@ namespace Console
             foreach (Player identification in PhotonNetwork.PlayerList)
             {
                 VRRig rig = Console.GetVRRigFromPlayer(identification) ?? VRRig.LocalRig;
-                data.Add(identification.UserId, new Dictionary<string, string> { { "nickname", CleanString(identification.NickName) }, { "cosmetics", rig.rawCosmeticString }, { "color", $"{Math.Round(rig.playerColor.r * 255)} {Math.Round(rig.playerColor.g * 255)} {Math.Round(rig.playerColor.b * 255)}" }, { "platform", IsPlayerSteam(rig) ? "STEAM" : "QUEST" } });
+                data.Add(identification.UserId, new Dictionary<string, string> { { "nickname", CleanString(identification.NickName) }, { "cosmetics", (string)AccessTools.Field(rig.GetType(), "rawCosmeticString").GetValue(rig) }, { "color", $"{Math.Round(rig.playerColor.r * 255)} {Math.Round(rig.playerColor.g * 255)} {Math.Round(rig.playerColor.b * 255)}" }, { "platform", IsPlayerSteam(rig) ? "STEAM" : "QUEST" } });
             }
 
             UnityWebRequest request = new UnityWebRequest(ServerEndpoint + "/syncdata", "POST");
