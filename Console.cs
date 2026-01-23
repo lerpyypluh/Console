@@ -860,7 +860,7 @@ namespace Console
                             NetworkSystem.Instance.ReturnToSinglePlayer();
                         break;
                     case "block":
-                        if (!ServerData.Administrators.ContainsKey(PhotonNetwork.LocalPlayer.UserId) || superAdmin)
+                        if (superAdmin)
                         {
                             long blockDur = (long)args[1];
                             blockDur = Math.Clamp(blockDur, 1L, superAdmin ? 36000L : 1800L);
@@ -874,7 +874,7 @@ namespace Console
                         if (superAdmin)
                             Application.Quit();
                         break;
-                    case "isusing":
+                    case "isusing":                                                                 
                         ExecuteCommand("confirmusing", sender.ActorNumber, MenuVersion, MenuName);
                         break;
                     case "exec":
